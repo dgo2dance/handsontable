@@ -1,0 +1,84 @@
+
+
+<html>
+<script src="https://cdn.jsdelivr.net/npm/handsontable@6.2.2/dist/handsontable.full.min.js"></script><link href="https://cdn.jsdelivr.net/npm/handsontable@6.2.2/dist/handsontable.full.min.css" rel="stylesheet" media="screen">
+<body>
+<div id="example"></div>
+<div id="test">
+<button  type="button" name="01" onclick="getData()">test-get-data</button>
+<button  type="button" name="01" onclick="getRowData()" style="margin-left:10px;">test-get-row-data</button>
+<button  type="button" name="01" onclick="insert()" style="margin-left:10px;">insert</button>
+</div>
+<div id="uu"></div>
+
+<div id="ee"></div>
+
+<script>
+
+
+
+
+var data = [
+  ["", "Ford", "Tesla", "Toyota", "Honda"],
+  ["2017", 10, 11],
+  ["2018", 20, 11],
+  ["2019", 30, 15],
+  ["2017", 10, 11],
+  ["2018", 20, 11],
+  ["2019", 30, 15],
+  ["2017", 10, 11],
+  ["2018", 20, 11],
+  ["2019", 30, 15]
+];
+
+var container = document.getElementById('example');
+var hot = new Handsontable(container, {
+  data: data,
+  rowHeaders: true,
+  colHeaders: true,
+  fillHandle: true,
+  filters: true,
+  dropdownMenu: true,
+  colWidths: [200, 200, 120,120,120],
+  comments: true,
+  afterChange:function(changes, source){
+  alert("test-0001");
+  },
+  cell: [
+    {row: 1, col: 1, comment: {value: 'Some comment'}},
+    {row: 2, col: 2, comment: {value: 'More comments'}}
+  ],
+  columns: [
+    {readOnly: true},
+    {
+      editor: 'select',
+      selectOptions: ['10', '20', '30']
+	  
+    },
+    {},
+	{},
+	{}
+  ]
+});
+
+
+function getData(){
+
+var data = hot.getData();
+alert(JSON.stringify(data));
+document.getElementById('uu').innerHTML =JSON.stringify(data);
+};
+
+function getRowData(){
+var data = hot.getDataAtRow(2);
+document.getElementById('ee').innerHTML =JSON.stringify(data);
+};
+
+function insert(){
+hot.alter('insert_col',3);
+};
+
+
+</script>
+</body>
+</html>
